@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     const menuItem = <React.Fragment>
         <li className="link link-hover"><Link to="/">Home</Link></li>
-        <li className="link link-hover"><Link to="/blog">Blog</Link></li>
         <li className="link link-hover"><Link to="/dashboard">Dashboard</Link></li>
     </React.Fragment>
 

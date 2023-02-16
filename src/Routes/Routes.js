@@ -1,5 +1,7 @@
-import Blog from "../Pages/Blog/Blog";
-import Dashboard from "../Pages/Dashboard/Dashboard";
+import Dashboard from "../layout/Dashboard/Dashboard";
+import AddPost from "../Pages/Dashboard/PostList/AddPost";
+import Postlist from "../Pages/Dashboard/PostList/Postlist";
+import SinglePost from "../Pages/SinglePost/SinglePost";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../layout/Main");
@@ -15,12 +17,23 @@ const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
-                path: '/blog',
-                element: <Blog></Blog>
+                path: '/post/:id',
+                loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`),
+                element: <SinglePost></SinglePost>
             },
             {
                 path: '/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <Dashboard></Dashboard>,
+                children: [
+                    {
+                      path: "/dashboard",
+                      element: <Postlist></Postlist>
+                    },
+                    {
+                      path: "add-post",
+                      element: <AddPost></AddPost>
+                    },
+                ]
             }
         ]
     }
