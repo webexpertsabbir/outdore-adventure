@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import deletePost from "../../../redux/thunk/posts/deletePost";
+import loadPostData from "../../../redux/thunk/posts/fetchPosts";
 
 const Postlist = () => {
-  const [posts, setPosts] = useState([]);
+
+  const posts = useSelector(state => state.post.posts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("http://localhost:5000/posts")
-      .then((res) => res.json())
-      .then((data) => setPosts(data));
-  });
+    dispatch(loadPostData())
+  }, [dispatch]);
 
   return (
     <div class='flex flex-col justify-center items-center h-full w-full '>
@@ -28,7 +32,7 @@ const Postlist = () => {
                   <div class='font-semibold text-left'>User</div>
                 </th>
                 <th class='p-2'>
-                  <div class='font-semibold text-left'>Price</div>
+                  <div class='font-semibold text-left'>Edit Post</div>
                 </th>
                 <th class='p-2'>
                   <div class='font-semibold text-center'>Action</div>
@@ -48,15 +52,15 @@ const Postlist = () => {
                   <td class='p-2'>
                     <div class='text-left capitalize'>{user}</div>
                   </td>
-                  
+
                   <td class='p-2'>
                     <div class='text-left font-medium text-indigo-500 cursor-pointer'>
-                      Edit
+                     <Link to={`/edit-post/${_id}`}>Edit</Link>
                     </div>
                   </td>
                   <td class='p-2'>
                     <div class='flex justify-center'>
-                      <button>
+                      <button onClick={() => dispatch(deletePost(_id))}>
                         <svg
                           class='w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1'
                           fill='none'

@@ -2,11 +2,15 @@ import logo from './logo.svg';
 import './App.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './Routes/Routes';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function App() {
   return (
     <div>
-      <RouterProvider router={router}></RouterProvider>
+      <Provider store={store}>
+        <RouterProvider router={router}></RouterProvider>
+      </Provider>
     </div>
   );
 }

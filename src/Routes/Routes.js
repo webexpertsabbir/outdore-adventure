@@ -1,6 +1,7 @@
 import Dashboard from "../layout/Dashboard/Dashboard";
 import AddPost from "../Pages/Dashboard/PostList/AddPost";
 import Postlist from "../Pages/Dashboard/PostList/Postlist";
+import EditPost from "../Pages/EditPost/EditPost";
 import SinglePost from "../Pages/SinglePost/SinglePost";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -18,21 +19,27 @@ const router = createBrowserRouter([
             },
             {
                 path: '/post/:id',
-                loader: ({params})=> fetch(`http://localhost:5000/posts/${params.id}`),
+                loader: ({ params }) => fetch(`https://moon-tech-server-seven.vercel.app/posts/${params.id}`),
                 element: <SinglePost></SinglePost>
+            },
+            {
+                path: '/edit-post/:id',
+                loader: ({ params }) => fetch(`https://moon-tech-server-seven.vercel.app/posts/${params.id}`),
+                element: <EditPost></EditPost>
             },
             {
                 path: '/dashboard',
                 element: <Dashboard></Dashboard>,
                 children: [
                     {
-                      path: "/dashboard",
-                      element: <Postlist></Postlist>
+                        path: "/dashboard",
+                        element: <Postlist></Postlist>
                     },
                     {
-                      path: "add-post",
-                      element: <AddPost></AddPost>
+                        path: "add-post",
+                        element: <AddPost></AddPost>
                     },
+                    
                 ]
             }
         ]
